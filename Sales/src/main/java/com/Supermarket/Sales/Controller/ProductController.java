@@ -36,12 +36,7 @@ public class ProductController {
         return categoryRepository.findById(categoryId);
     }
    /*reference
-    @PostMapping("/")
 
-    public String saveUser(@RequestBody Exp4User exp4User) {
-        Exp4UserInterface.save(exp4User);
-        return "Saved...";
-    }
     @PutMapping("/update/{id}")
     public String updateUser(@PathVariable long id,@RequestBody Exp4User exp4User) {
         Exp4User updatedUser = Exp4UserInterface.findById(id).get();

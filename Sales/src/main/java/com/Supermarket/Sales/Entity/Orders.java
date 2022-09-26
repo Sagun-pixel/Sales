@@ -17,8 +17,8 @@ public class Orders {
     private User user;
 
     private Integer orderQty;
-    public double pricePerItem;
-    public double discountedPrice;
+  /*  public double pricePerItem;
+    public double discountedPrice;*/
     public double TotalItemPrice;//after discounts n qty ;discountedPrice*qty
 
    public double BillAmount;
@@ -40,7 +40,7 @@ public class Orders {
     public void setOrderQty(Integer orderQty) {
         this.orderQty = orderQty;
     }
-
+/*
     public double getPricePerItem() {
         return pricePerItem;
     }
@@ -56,7 +56,7 @@ public class Orders {
     public void setDiscountedPrice(double discountedPrice) {
         this.discountedPrice = discountedPrice;
     }
-
+*/
     public double getTotalItemPrice() {
         return TotalItemPrice;
     }

@@ -3,12 +3,10 @@ package com.Supermarket.Sales.Controller;
 import com.Supermarket.Sales.Entity.User;
 import com.Supermarket.Sales.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class UserController {
@@ -30,5 +28,16 @@ public class UserController {
         userRepository.save(user);
         return "User added";
     }
+    @GetMapping("/userById/{id}")
+    public String userById(@PathVariable Integer userId)
+    {
+        //"More than one user can have the same name,it was a good call to use the user id to access data "+
+       String s1= (userRepository.findById(userId)).toString();
+       return "More than one user can have the same name,it was a good call to use the user id to access data"+s1;
+
+
+    }
+    //String s1 = help.toString();
+   // String s2 = String.valueOf(help);
 
 }

@@ -4,18 +4,20 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.lang.reflect.Member;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class User {
 @Id
-@GeneratedValue(strategy = GenerationType.SEQUENCE)
+//@GeneratedValue(strategy = GenerationType.IDENTITY)
 
 
    public Integer userId;
    private String firstName;
    private String lastName;
-   private String PhoneNo;
+   private String phoneNo;
    private String email;
 @Column(name= "member")
    private String membershipStatus; //active_inactive
@@ -24,8 +26,13 @@ public class User {
    @Column(name = "memPts")
    private Integer MemberPoints;
 
-   @OneToMany
-   private OrderDetails orderDetails;
+
+  @OneToMany
+   private List<Orders> orders=new ArrayList<>();
+
+  @OneToMany
+  private List< OrderDetails> orderDetails=new ArrayList<>();
+  //-----------------------------------------------------------------------------------------
    public User() {
    }
 
@@ -53,15 +60,15 @@ public class User {
       this.lastName = lastName;
    }
 
-   public String getPhoneNo() {
-      return PhoneNo;
-   }
+    public String getPhoneNo() {
+        return phoneNo;
+    }
 
-   public void setPhoneNo(String phoneNo) {
-      PhoneNo = phoneNo;
-   }
+    public void setPhoneNo(String phoneNo) {
+        this.phoneNo = phoneNo;
+    }
 
-   public String getEmail() {
+    public String getEmail() {
       return email;
    }
 
@@ -93,17 +100,36 @@ public class User {
       MemberPoints = memberPoints;
    }
 
-   @Override
-   public String toString() {
-      return "User{" +
-              "userId=" + userId +
-              ", firstName='" + firstName + '\'' +
-              ", lastName='" + lastName + '\'' +
-              ", PhoneNo='" + PhoneNo + '\'' +
-              ", email='" + email + '\'' +
-              ", membershipStatus='" + membershipStatus + '\'' +
-              ", memStartDate=" + memStartDate +
-              ", MemberPoints=" + MemberPoints +
-              '}';
-   }
+    public List<Orders> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Orders> orders) {
+        this.orders = orders;
+    }
+
+    public List<OrderDetails> getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(List<OrderDetails> orderDetails) {
+        this.orderDetails = orderDetails;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", phoneNo='" + phoneNo + '\'' +
+                ", email='" + email + '\'' +
+                ", membershipStatus='" + membershipStatus + '\'' +
+                ", memStartDate=" + memStartDate +
+                ", MemberPoints=" + MemberPoints +
+                ", orders=" + orders +
+                ", orderDetails=" + orderDetails +
+                '}';
+    }
 }
+

@@ -1,20 +1,44 @@
 package com.Supermarket.Sales.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Transactional
 public class Category {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+   // @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer categoryId;
-    @Column(name="Title")
+    @Column//(name="Title")
     public String categoryTitle;
-    @Column(name ="Description",length = 3000)
+    @Column//(name ="Description",length = 3000)
     private String categoryDescription;
-@OneToMany(mappedBy = "category")
+   @JsonBackReference
+@OneToMany
+@JoinColumn(name = "fk_categoryId",referencedColumnName = "categoryId")
     private List<Product> productList= new ArrayList<>();
+//-----------------------------------------------------------------------------------------------------------
+
+
+    public Category() {
+    }
+
+    public Category(String categoryTitle, String categoryDescription, List<Product> productList) {
+        this.categoryTitle = categoryTitle;
+        this.categoryDescription = categoryDescription;
+        this.productList = productList;
+    }
+
+    public Category(Integer categoryId, String categoryTitle, String categoryDescription, List<Product> productList) {
+        this.categoryId = categoryId;
+        this.categoryTitle = categoryTitle;
+        this.categoryDescription = categoryDescription;
+        this.productList = productList;
+    }
 
     public List<Product> getProductList() {
         return productList;

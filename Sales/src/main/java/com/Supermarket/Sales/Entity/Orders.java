@@ -1,28 +1,28 @@
 package com.Supermarket.Sales.Entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.util.List;
 
 //orderSummary
 @Entity
 public class Orders {
     @Id
+   // @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer orderNum;
 
-    @OneToOne
-    private Product product;
-    @OneToOne
+ //  @OneToOne
+ //   private Product product;
+    @ManyToOne
     private User user;
 
-    private Integer orderQty;
-  /*  public double pricePerItem;
-    public double discountedPrice;*/
-    public double TotalItemPrice;//after discounts n qty ;discountedPrice*qty
 
    public double BillAmount;
+@OneToMany
+    private List<Cart> cartItems;
+@OneToOne
+private OrderDetails orderDetails;
 
+//-------------------------------------------------------------------------------------------------------------------
     public Integer getOrderNum() {
         return orderNum;
     }
@@ -32,38 +32,28 @@ public class Orders {
     }
 
 
-
-    public Integer getOrderQty() {
+ /*   public Integer getOrderQty() {
         return orderQty;
     }
 
     public void setOrderQty(Integer orderQty) {
         this.orderQty = orderQty;
-    }
-/*
-    public double getPricePerItem() {
-        return pricePerItem;
-    }
-
-    public void setPricePerItem(double pricePerItem) {
-        this.pricePerItem = pricePerItem;
+    }*/
+    public User getUser() {
+        return user;
     }
 
-    public double getDiscountedPrice() {
-        return discountedPrice;
+    public void setUser(User user) {
+        this.user = user;
+    }
+    public List<Cart> getCartItems() {
+        return cartItems;
     }
 
-    public void setDiscountedPrice(double discountedPrice) {
-        this.discountedPrice = discountedPrice;
-    }
-*/
-    public double getTotalItemPrice() {
-        return TotalItemPrice;
+    public void setCartItems(List<Cart> cartItems) {
+        this.cartItems = cartItems;
     }
 
-    public void setTotalItemPrice(double totalItemPrice) {
-        TotalItemPrice = totalItemPrice;
-    }
 
     public double getBillAmount() {
         return BillAmount;
@@ -71,5 +61,13 @@ public class Orders {
 
     public void setBillAmount(double billAmount) {
         BillAmount = billAmount;
+    }
+
+    public OrderDetails getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(OrderDetails orderDetails) {
+        this.orderDetails = orderDetails;
     }
 }

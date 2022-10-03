@@ -1,11 +1,17 @@
 package com.Supermarket.Sales.Entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
 import javax.persistence.*;
+import javax.transaction.Transactional;
 
 @Entity
+@Transactional
 public class Product {
 @Id
-@GeneratedValue(strategy = GenerationType.SEQUENCE)
+//@GeneratedValue(strategy = GenerationType.IDENTITY)
    public Integer productCode;
 @Column(name = "Name")
    private String productName;
@@ -14,11 +20,45 @@ private String productDescription;
   // public String CategoryId;
 @Column
 private Integer qtyInTotal;
-public double pricePerItem;
-private double Discount;//memberPoints yes_no,anyPresentOffers
-
+//public double pricePerItem;
+//private double Discount;//memberPoints yes_no,anyPresentOffers
+@JsonManagedReference
    @ManyToOne
+   @JoinColumn(name = "fk_sNo")
+   private Price price;
+   @JsonManagedReference
+   @ManyToOne(cascade = CascadeType.ALL)
+   @JoinColumn(name = "fk_categoryId")
    private Category category;
+//-----------------------------------------------------------------------------------------------------------------
+
+    public Product() {
+    }
+
+    public Product(Integer productCode, String productName, String productDescription, Integer qtyInTotal, Price price, Category category) {
+        this.productCode = productCode;
+        this.productName = productName;
+        this.productDescription = productDescription;
+        this.qtyInTotal = qtyInTotal;
+        this.price = price;
+        this.category = category;
+    }
+
+    public Product(String productName, String productDescription, Integer qtyInTotal, Price price, Category category) {
+        this.productName = productName;
+        this.productDescription = productDescription;
+        this.qtyInTotal = qtyInTotal;
+        this.price = price;
+        this.category = category;
+    }
+
+    public Price getPrice() {
+      return price;
+   }
+
+   public void setPrice(Price price) {
+      this.price = price;
+   }
 
    public Category getCategory() {
       return category;
@@ -28,7 +68,7 @@ private double Discount;//memberPoints yes_no,anyPresentOffers
       this.category = category;
    }
 
-   private double DiscountedPrice;
+
 
    public Integer getProductCode() {
       return productCode;
@@ -54,13 +94,6 @@ private double Discount;//memberPoints yes_no,anyPresentOffers
       this.productDescription = productDescription;
    }
 
-  /* public String getCategoryId() {
-      return CategoryId;
-   }
-
-   public void setCategoryId(String categoryId) {
-      CategoryId = categoryId;
-   }*/
 
    public Integer getQtyInTotal() {
       return qtyInTotal;
@@ -69,30 +102,5 @@ private double Discount;//memberPoints yes_no,anyPresentOffers
    public void setQtyInTotal(Integer qtyInTotal) {
       this.qtyInTotal = qtyInTotal;
    }
-
-   public double getPricePerItem() {
-      return pricePerItem;
-   }
-
-   public void setPricePerItem(double pricePerItem) {
-      this.pricePerItem = pricePerItem;
-   }
-
-   public double getDiscount() {
-      return Discount;
-   }
-
-   public void setDiscount(double discount) {
-      Discount = discount;
-   }
-
-   public double getDiscountedPrice() {
-      return DiscountedPrice;
-   }
-
-   public void setDiscountedPrice(double discountedPrice) {
-      DiscountedPrice = discountedPrice;
-   }
-
 
 }

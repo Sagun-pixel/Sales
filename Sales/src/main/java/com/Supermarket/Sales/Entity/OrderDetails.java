@@ -1,24 +1,40 @@
 package com.Supermarket.Sales.Entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 @Entity
 public class OrderDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    public Integer orderNum;
+  //  @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Integer orderDetailsNum;
     private Date orderDate;
 
-    private boolean DeliveryStatus;
-    @ManyToOne
+    private boolean deliveryStatus;
+    @ManyToOne()
     private User user;
 
-    public Integer getOrderNum() {
-        return orderNum;
+    @OneToOne
+    private Orders orders;
+
+    //---------------------------------------------------------------------------------------------------
+
+    public User getUser() {
+        return user;
     }
 
-    public void setOrderNum(Integer orderNum) {
-        this.orderNum = orderNum;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Integer getOrderDetailsNum() {
+        return orderDetailsNum;
+    }
+
+    public void setOrderDetailsNum(Integer orderDetailsNum) {
+        this.orderDetailsNum = orderDetailsNum;
     }
 
     public Date getOrderDate() {
@@ -29,13 +45,20 @@ public class OrderDetails {
         this.orderDate = orderDate;
     }
 
+
     public boolean isDeliveryStatus() {
-        return DeliveryStatus;
+        return deliveryStatus;
     }
 
     public void setDeliveryStatus(boolean deliveryStatus) {
-        DeliveryStatus = deliveryStatus;
+        this.deliveryStatus = deliveryStatus;
     }
 
+    public Orders getOrders() {
+        return orders;
+    }
 
+    public void setOrders(Orders orders) {
+        this.orders = orders;
+    }
 }

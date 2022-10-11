@@ -46,6 +46,11 @@ public String activatePrice(@RequestBody Price price)
         updatedPrice.setEffPrice(price.getEffPrice());
         priceRepository.save(updatedPrice);
         return "Updated...";}
+    @DeleteMapping("/deactivatePrice/{priceId}")
+    public String deactivatePrice(@PathVariable Integer priceId)
+    { Price deactivatePrice=priceRepository.findById(priceId).get();
+        priceRepository.delete(deactivatePrice);
+        return "Deactivate price with price id"+priceId;}
 
 
 }

@@ -9,4 +9,12 @@ import java.util.Date;
 public interface OrderDetailsRepository extends JpaRepository <OrderDetails,Integer> {
     @Query("Select o FROM OrderDetails o where o.orderDate=date")
     public OrderDetails ordersByDate(Date date);
+
+    @Query("Select o.deliveryStatus from OrderDetails o where o.orderNum=orderNum")
+    public OrderDetails getDeliverStatus(Integer orderNum);
+
+    @Query("Select o from OrderDetails o where o.orderNum=orderNum")
+    public OrderDetails findWhereOrderNumIs(Integer orderNum);
+
+
 }

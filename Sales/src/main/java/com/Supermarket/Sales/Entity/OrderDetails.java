@@ -8,18 +8,28 @@ import java.util.List;
 @Entity
 public class OrderDetails {
     @Id
-  //  @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Integer orderDetailsNum;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Integer orderNum;
     private Date orderDate;
-
-    private boolean deliveryStatus;
-    @ManyToOne()
+    private Integer userId;
+    private String deliveryStatus;
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name="userId",insertable=false,updatable=false)
     private User user;
 
     @OneToOne
+    @JoinColumn
     private Orders orders;
 
     //---------------------------------------------------------------------------------------------------
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
 
     public User getUser() {
         return user;
@@ -29,12 +39,12 @@ public class OrderDetails {
         this.user = user;
     }
 
-    public Integer getOrderDetailsNum() {
-        return orderDetailsNum;
+    public Integer getOrderNum() {
+        return orderNum;
     }
 
-    public void setOrderDetailsNum(Integer orderDetailsNum) {
-        this.orderDetailsNum = orderDetailsNum;
+    public void setOrderNum(Integer orderNum) {
+        this.orderNum = orderNum;
     }
 
     public Date getOrderDate() {
@@ -46,11 +56,11 @@ public class OrderDetails {
     }
 
 
-    public boolean isDeliveryStatus() {
+    public String getDeliveryStatus() {
         return deliveryStatus;
     }
 
-    public void setDeliveryStatus(boolean deliveryStatus) {
+    public void setDeliveryStatus(String deliveryStatus) {
         this.deliveryStatus = deliveryStatus;
     }
 

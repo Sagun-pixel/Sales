@@ -1,50 +1,44 @@
 package com.Supermarket.Sales.Entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
-import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Transactional
+//@Transactional
+//@Data
+//@NoArgsConstructor
+//@AllArgsConstructor
 public class Category {
     @Id
-   // @GeneratedValue(strategy = GenerationType.IDENTITY)
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer categoryId;
     @Column//(name="Title")
     public String categoryTitle;
     @Column//(name ="Description",length = 3000)
     private String categoryDescription;
-   @JsonBackReference
-@OneToMany
-@JoinColumn(name = "fk_categoryId",referencedColumnName = "categoryId")
-    private List<Product> productList= new ArrayList<>();
+  // private Integer productCode;
+
+  // @ManyToMany(cascade = CascadeType.PERSIST)
+//@JsonManagedReference
+  // @JoinColumn(name="productCode",updatable = false)
+//@JoinColumn(name="productList",insertable = false,updatable = false)
+    //  private List<Product> productList ;//=new HashSet<Product>();
+  @JsonBackReference
+  @OneToMany(cascade = CascadeType.PERSIST,mappedBy = "category")
+  private List<Product> productList;
+
 //-----------------------------------------------------------------------------------------------------------
 
-
     public Category() {
-    }
-
-    public Category(String categoryTitle, String categoryDescription, List<Product> productList) {
-        this.categoryTitle = categoryTitle;
-        this.categoryDescription = categoryDescription;
-        this.productList = productList;
     }
 
     public Category(Integer categoryId, String categoryTitle, String categoryDescription, List<Product> productList) {
         this.categoryId = categoryId;
         this.categoryTitle = categoryTitle;
         this.categoryDescription = categoryDescription;
-        this.productList = productList;
-    }
-
-    public List<Product> getProductList() {
-        return productList;
-    }
-
-    public void setProductList(List<Product> productList) {
         this.productList = productList;
     }
 
@@ -72,12 +66,14 @@ public class Category {
         this.categoryDescription = categoryDescription;
     }
 
-    @Override
-    public String toString() {
-        return "Category{" +
-                "categoryId=" + categoryId +
-                ", categoryTitle='" + categoryTitle + '\'' +
-                ", categoryDescription='" + categoryDescription + '\'' +
-                '}';
+
+    public List<Product> getProductList() {
+        return productList;
     }
+
+    public void setProductList(List<Product> productList) {
+        this.productList = productList;
+    }
+
+
 }

@@ -1,5 +1,7 @@
 package com.Supermarket.Sales.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -7,22 +9,46 @@ import java.util.List;
 @Entity
 public class Orders {
     @Id
-   // @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Integer orderNum;
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
 
- //  @OneToOne
- //   private Product product;
-    @ManyToOne
+    public Integer orderNum;
+    @Column
+    private Integer userId;
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name="userId",insertable=false,updatable=false)
     private User user;
 
-
-   public double BillAmount;
+@Column
+   public double billAmount;
 @OneToMany
+@JoinColumn
     private List<Cart> cartItems;
 @OneToOne
+@JsonBackReference
 private OrderDetails orderDetails;
 
 //-------------------------------------------------------------------------------------------------------------------
+
+    public Orders() {
+    }
+
+    public Orders(Integer orderNum, Integer userId, User user, double billAmount, List<Cart> cartItems, OrderDetails orderDetails) {
+        this.orderNum = orderNum;
+        this.userId = userId;
+        this.user = user;
+        this.billAmount = billAmount;
+        this.cartItems = cartItems;
+        this.orderDetails = orderDetails;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
     public Integer getOrderNum() {
         return orderNum;
     }
@@ -56,11 +82,11 @@ private OrderDetails orderDetails;
 
 
     public double getBillAmount() {
-        return BillAmount;
+        return billAmount;
     }
 
     public void setBillAmount(double billAmount) {
-        BillAmount = billAmount;
+        this.billAmount = billAmount;
     }
 
     public OrderDetails getOrderDetails() {
@@ -69,5 +95,17 @@ private OrderDetails orderDetails;
 
     public void setOrderDetails(OrderDetails orderDetails) {
         this.orderDetails = orderDetails;
+    }
+
+    @Override
+    public String toString() {
+        return "Orders{" +
+                "orderNum=" + orderNum +
+                ", userId=" + userId +
+                ", user=" + user +
+                ", billAmount=" + billAmount +
+                ", cartItems=" + cartItems +
+                ", orderDetails=" + orderDetails +
+                '}';
     }
 }

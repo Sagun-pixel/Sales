@@ -1,6 +1,9 @@
 package com.Supermarket.Sales.Entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,6 +30,8 @@ private String productDescription;
 private Integer qtyInTotal;
 private Integer priceId;
 private Integer categoryId;
+
+
    @ManyToOne(cascade = CascadeType.PERSIST)
    @JoinColumn(name="priceId",insertable=false,updatable=false)
    private Price price;
@@ -39,7 +44,21 @@ private Integer categoryId;
 @JoinColumn(name="categoryId",insertable=false,updatable=false)
 private Category category;
 
+   @ManyToMany(mappedBy = "products")
+   @JsonBackReference
+   private List<Cart> carts ;
+  // @ManyToMany(cascade = CascadeType.ALL)
+   //@JoinTable(name="cart_prod", joinColumns=@JoinColumn(name="productCode"), inverseJoinColumns=@JoinColumn(name = "userId"))
+   //private List<Cart> carts;
 
+ // @ManyToOne(cascade = CascadeType.PERSIST)
+ // @JoinColumn(insertable=false,updatable=false)
+   //@JoinColumn
+ //  private Cart cart;
+/* @NotNull
+ @ManyToOne(fetch = FetchType.LAZY, optional = false)
+ @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+ private Cart cart;*/
 //-----------------------------------------------------------------------------------------------------------------
 
 

@@ -50,11 +50,6 @@ public class ProductController {
     }
 
 
-
-  /*  @GetMapping("/findByCategory/{categoryTitle}")
-    public List <Product> findProductsByCategoryName(String categoryTitle){
-    return productRepository.findProductListByCategoriesCategoryTitle(categoryTitle);}*/
-
         // do something with entities
 
 @PutMapping("/updateProductDetails/{productCode}")

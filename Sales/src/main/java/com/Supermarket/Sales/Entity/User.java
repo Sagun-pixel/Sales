@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -21,6 +21,8 @@ public class User {
    private String lastName;
    private String phoneNo;
    private String email;
+    @Lob
+    private byte[] userPhoto;
 @Column(name= "member")
    private String membershipStatus; //active_inactive
    @Column(name = "since")
@@ -38,6 +40,8 @@ public class User {
 @JsonBackReference(value = "B")
   @OneToMany(cascade = CascadeType.PERSIST,mappedBy = "user")
   private List<OrderDetails> orderDetails;//=new ArrayList<>();
+
+
    // LocalDate currentDate = LocalDate.now();
 /*public int calculateMemPeriod(Date memStartDate, Date currentDate) {
 //        // validate inputs ...
@@ -94,10 +98,36 @@ public class User {
     //}
   //-----------------------------------------------------------------------------------------
 
-   public User() {
-   }
 
-   public Integer getUserId() {
+    public User() {
+    }
+
+    public User(Integer userId, String firstName) {
+    }
+
+    public User(String firstName, String lastName, String phoneNo, byte[] userPhoto) {
+        this.userId = userId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNo = phoneNo;
+        this.email = email;
+        this.userPhoto = userPhoto;
+        this.membershipStatus = membershipStatus;
+        this.memStartDate = memStartDate;
+
+        this.orders = orders;
+        this.orderDetails = orderDetails;
+    }
+
+    public byte[] getUserPhoto() {
+        return userPhoto;
+    }
+
+    public void setUserPhoto(byte[] userPhoto) {
+        this.userPhoto = userPhoto;
+    }
+
+    public Integer getUserId() {
       return userId;
    }
 
@@ -185,6 +215,7 @@ public class User {
                 ", lastName='" + lastName + '\'' +
                 ", phoneNo='" + phoneNo + '\'' +
                 ", email='" + email + '\'' +
+                ", userPhoto=" + Arrays.toString(userPhoto) +
                 ", membershipStatus='" + membershipStatus + '\'' +
                 ", memStartDate=" + memStartDate +
                 ", MemberPoints=" + MemberPoints +

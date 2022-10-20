@@ -19,8 +19,7 @@ public interface ProductRepository extends JpaRepository<Product,Integer> {
 @Query(("SELECT  p,pr FROM  Product p, Price pr"
         + " WHERE p.priceId = pr.priceId AND pr.pricePerItem <= ?1"))
          List<Product> findByPricePerItemLessThan( double pricePerItem);
-/*@Query("Select p FROM Product p, Category c "+ "WHERE p.categoryId=c.categoryId AND c.categoryTitle = ?categoryTitle")
- List <Product> findProductListByCategoriesCategoryTitle(String categoryTitle);*/
+
  /*  public default List<Product> findByPriceLessThan(double pricePerItem) {
 
       EntityManagerFactory emf = null;

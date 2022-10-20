@@ -20,25 +20,24 @@ public class Orders {
 
 @Column
    public double billAmount;
-@OneToMany
-@JoinColumn
-    private List<Cart> cartItems;
-@OneToOne
+@OneToMany(mappedBy = "orders")
 @JsonBackReference
-private OrderDetails orderDetails;
+    private List<Cart> cartItems;
+//@OneToOne
+//@JsonBackReference
+//private OrderDetails orderDetails;
 
 //-------------------------------------------------------------------------------------------------------------------
 
     public Orders() {
     }
 
-    public Orders(Integer orderNum, Integer userId, User user, double billAmount, List<Cart> cartItems, OrderDetails orderDetails) {
+    public Orders(Integer orderNum, Integer userId, User user, double billAmount, List<Cart> cartItems) {
         this.orderNum = orderNum;
         this.userId = userId;
         this.user = user;
         this.billAmount = billAmount;
         this.cartItems = cartItems;
-        this.orderDetails = orderDetails;
     }
 
     public Integer getUserId() {
@@ -89,13 +88,6 @@ private OrderDetails orderDetails;
         this.billAmount = billAmount;
     }
 
-    public OrderDetails getOrderDetails() {
-        return orderDetails;
-    }
-
-    public void setOrderDetails(OrderDetails orderDetails) {
-        this.orderDetails = orderDetails;
-    }
 
     @Override
     public String toString() {
@@ -105,7 +97,6 @@ private OrderDetails orderDetails;
                 ", user=" + user +
                 ", billAmount=" + billAmount +
                 ", cartItems=" + cartItems +
-                ", orderDetails=" + orderDetails +
                 '}';
     }
 }

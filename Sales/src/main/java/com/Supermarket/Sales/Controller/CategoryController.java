@@ -2,11 +2,13 @@ package com.Supermarket.Sales.Controller;
 
 import com.Supermarket.Sales.Entity.Cart;
 import com.Supermarket.Sales.Entity.Category;
+import com.Supermarket.Sales.Entity.Product;
 import com.Supermarket.Sales.Repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 public class CategoryController {
@@ -35,6 +37,11 @@ public List<Category> getCat()
         return "Category details updated";
 
     }
+    @GetMapping("/findByCategory/{categoryTitle}")
+    public List <Object> findProductsByCategoryName(@PathVariable String categoryTitle){
+        return categoryRepository.findProductListByCategoriesCategoryTitle(categoryTitle);}
+  //  public List <String> findProductsByCategoryName(@PathVariable String categoryTitle){
+    //    return categoryRepository.findProductListByCategoriesCategoryTitle(categoryTitle);}
     @DeleteMapping("/deactivateCat/{categoryId}")
     public String deleteCat(@PathVariable Integer categoryId)
     { Category deleteCat=categoryRepository.findById(categoryId).get();
